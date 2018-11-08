@@ -1,11 +1,10 @@
 import express from 'express';
-import { createServer } from 'http';
 
 import middlewares from './api/v1/middlewares';
 
-const app = express();
-middlewares(app);
-const server = createServer(app);
+const server = express();
+server.use(express.json())
+middlewares(server);
 
 const port = process.env.PORT || 8000;
 server.listen(port, err => {

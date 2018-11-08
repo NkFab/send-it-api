@@ -1,11 +1,8 @@
-import bodyParser from 'body-parser';
 import morgan from 'morgan';
 import routes from '../routes';
 
 export default app => {
     app.use(morgan('dev'));
-    app.use(bodyParser.urlencoded({ extended: false }));
-    app.use(bodyParser.json());
 
     // Headers config
 

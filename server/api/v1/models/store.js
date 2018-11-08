@@ -1,24 +1,27 @@
 class Store {
-    constructor(model) {
-        this.model = model;
+    constructor(model_name) {
+        this.model_name = model_name;
         this.store = {};
-        this.store[this.model] = [];
+        this.store[this.model_name] = [];
         this.indexes = {};
-        this.indexes[this.model] = 0;
+        this.indexes[this.model_name] = 0;
+        this.error = new Error();
     }
 
-    save(data) {
+    create(data) {
         return new Promise((resolve, reject) => {
-            data.id = this.indexes[this.model];
-            this.indexes[this.model]++;
+
+            data.id = this.indexes[this.model_name].toString();
+            this.indexes[this.model_name]++;
             data.createdAt = new Date();
             data.updatedAt = new Date();
-            if (this.store[this.model].push(data)) {
-                resolve(data);
+
+            if (this.store[this.model_name]) {
+                this.store[this.model_name].push(data);
+                resolve(this.store[this.model_name].sort((a, b) => a.updatedAt < b.updatedAt));
             } else {
-                const error = new Error('not saved');
-                error.code = 101;
-                error.msg = 'error saving';
+                this.error.message = `the ${this.store[this.model_name]} collection not found`;
+                error.model_name = 'not saved';
                 reject(error);
             }
         });
@@ -26,8 +29,9 @@ class Store {
 
     search(args = {}) {
         return new Promise((resolve, reject) => {
-            if (this.store[this.model]) {
-                let found = this.store[this.model];
+            if (this.store[this.model_name]) {
+                console.log('args:', args);
+                let found = this.store[this.model_name];
                 for (const key in args) {
                     found = found.filter(
                         elmt =>
@@ -36,55 +40,48 @@ class Store {
                                 : elmt[key] === args[key],
                     );
                 }
-                resolve(found);
+                resolve(found.sort((a, b) => a.updatedAt < b.updatedAt));
             } else {
-                const error = new Error('not found');
-                error.code = 101;
-                error.msg = `${this.store[this.model]} collection not found`;
+                this.error.message = `the ${this.store[this.model_name]} collection not found`;
                 reject(error);
             }
         });
     }
 
-    searchId(id) {
-        return new Promise(resolve => {
-            resolve(this.store[this.model].find(order => order.id === Number(id)));
+    searchById(id) {
+        return new Promise((resolve, reject) => {
+            const found = this.store[this.model_name].find(order => order.id === id);
+            this.error.message = `id ${id}  not found`;
+            this.error.model_name = `not found`;
+            found ? resolve(found) : reject(this.error);
         });
     }
 
-    searchIdUpdate(id, args) {
+    update(id, args) {
         return new Promise((resolve, reject) => {
             this.findById(id)
                 .then(res => {
-                    if (res) {
-                        for (const key in args) {
-                            if (res.hasOwnProperty(key)) {
-                                res[key] = args[key];
-                            }
+                    for (const key in args) {
+                        if (res.hasOwnProperty(key)) {
+                            res[key] = args[key];
                         }
-                        res.updatedAt = new Date();
-                    } else {
-                        resolve(res);
                     }
+                    res.updatedAt = new Date();
+                    resolve(this.store[this.model_name].sort((a, b) => a.updatedAt < b.updatedAt));
                 })
-                .catch(err => reject(err));
-            resolve(this.store[this.model]);
+                .catch(err => reject({ ...err, name: 'not updated' }));
+        });
+    }
+
+    findByIdAndRemove(id) {
+        return new Promise((resolve, reject) => {
+            this.findById(id)
+                .then(res => {
+                    this.store[this.model_name].splice(this.store[this.model_name][res], 1);
+                    resolve(this.store[this.model_name].sort((a, b) => a.updatedAt < b.updatedAt));
+                })
+                .catch(err => reject({ ...err, name: 'not deleted' }));
         });
     }
 }
 export default Store;
-
-    //   searchIdRemove(id) {
-    //     return new Promise((resolve, reject) => {
-    //       this.findById(id)
-    //         .then(res => {
-    //           if (res) {
-    //             this.store[this.model].splice(this.store[this.model][res], 1);
-    //           }
-    //         })
-    //         .catch(err => reject(err));
-    //       resolve(this.store[this.model]);
-    //     });
-    //   }
-    // }
-

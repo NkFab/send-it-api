@@ -5,7 +5,7 @@ const router = Router();
 
 
 const entry = router.get('/', (req, res, next) => {
-    res.status(200).json({ msg: "Ntabwo nkina" });
+    return res.status(200).json({ msg: "Ntabwo nkina" });
 });
 router.use(parcel, entry);
 export default router;
