@@ -1,8 +1,6 @@
-import morgan from 'morgan';
 import routes from '../routes';
 
 export default app => {
-    app.use(morgan('dev'));
 
     // Headers config
 
