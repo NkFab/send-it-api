@@ -83,5 +83,8 @@ class Store {
                 .catch(err => reject({ ...err, name: 'not deleted' }));
         });
     }
+    clean() {
+        this.store[this.model_name].length = 0;
+    }
 }
 export default Store;

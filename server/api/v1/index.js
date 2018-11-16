@@ -1,6 +1,6 @@
 import express from 'express';
 
-import middlewares from './api/v1/middlewares';
+import middlewares from './middlewares';
 
 const server = express();
 server.use(express.json())
@@ -15,3 +15,5 @@ server.listen(port, err => {
     }
 });
 
+
+export default server;
