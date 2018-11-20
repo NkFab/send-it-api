@@ -29,5 +29,15 @@ describe('parcels', () => {
                 });
         });
     });
+    describe('GET a specific parcel by id', () => {
+        it('it should return an empty object', (done) => {
+            chai
+                .request(server)
+                .get('/api/v1/parcels/:id')
+                .end((err, res) => {
+                    res.should.have.status(200);
 
+                })
+        })
+    })
 });

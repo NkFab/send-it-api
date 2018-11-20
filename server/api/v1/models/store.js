@@ -1,3 +1,4 @@
+// ********** Author Musigwa Pacifique. **************
 class Store {
     constructor(model_name) {
         this.model_name = model_name;
@@ -7,7 +8,6 @@ class Store {
         this.indexes[this.model_name] = 0;
         this.error = new Error();
     }
-
     create(data) {
         return new Promise((resolve, reject) => {
 
@@ -30,7 +30,6 @@ class Store {
     search(args = {}) {
         return new Promise((resolve, reject) => {
             if (this.store[this.model_name]) {
-                console.log('args:', args);
                 let found = this.store[this.model_name];
                 for (const key in args) {
                     found = found.filter(
@@ -83,6 +82,8 @@ class Store {
                 .catch(err => reject({ ...err, name: 'not deleted' }));
         });
     }
+    //***********************************************************
+
     clean() {
         this.store[this.model_name].length = 0;
     }
