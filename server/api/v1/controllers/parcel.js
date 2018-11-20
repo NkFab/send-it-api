@@ -25,7 +25,7 @@ const getParcelOrderByUser = (req, res, next) => {
     res.status(200).json({ message: "These were ordered by a user" });
 };
 
-const cancelParcelOrder = (req, res, next) => {
+const cancelParcelOrder = (req, res) => {
     const { id } = req.params;
     Parcel.update(id, { ...req.body })
         .then(parcels => {

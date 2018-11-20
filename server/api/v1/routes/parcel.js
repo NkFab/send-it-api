@@ -10,11 +10,11 @@ const router = Router();
 
 router.get('/parcels', getAllParcels);
 
-router.get('/parcels/:parcelid', getParcelById);
+router.get('/parcels/:id', getParcelById);
 
-router.get('/users/:userId/parcels', getParcelOrderByUser);
+router.get('/users/:id/parcels', getParcelOrderByUser);
 
-router.put('/parcels/:parcelId/cancel', cancelParcelOrder);
+router.put('/parcels/:id/cancel', cancelParcelOrder);
 
 router.post('/parcels', createParcelOrder);
 
