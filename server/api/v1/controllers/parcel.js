@@ -15,7 +15,7 @@ const getParcelById = (req, res, next) => {
             if (parcel) {
                 res.status(200).json({ ...parcel });
             } else {
-                res.status(204).json({ message: `Parcel ${id} not found` });
+                res.status(404).json({ message: `Parcel ${id} is not found` });
             }
         })
         .catch(err => res.status(500).json({ ...err }));
@@ -30,9 +30,9 @@ const cancelParcelOrder = (req, res) => {
     Parcel.update(id, { ...req.body })
         .then(parcels => {
             if (parcels) {
-                res.status(200).json({ message: 'success', parcels });
+                res.status(200).json({ parcels });
             } else {
-                res.status(204).json({ message: `Parcel ${id} not found` });
+                res.status(404).json({ message: `Parcel ${id} is not found` });
             }
         })
         .catch(err => res.status(500).json({ ...err }));
@@ -42,7 +42,7 @@ const createParcelOrder = (req, res, next) => {
     const { recipient, ...rest } = req.body;
     Parcel.create({ recipient, ...rest })
         .then(parcels => {
-            res.status(201).json({ message: 'success', parcels });
+            res.status(201).json({ message: 'The parcel order was created', parcels });
         })
         .catch(err => res.status(500).json({ ...err }));
 }

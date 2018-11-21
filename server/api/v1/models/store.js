@@ -1,4 +1,14 @@
-// ********** Author Musigwa Pacifique. **************
+/** 
+     * Credit to Musigwa Pacifique for writting methods.
+     * Store for models in an array temporarily
+     * 
+     * */
+
+/**
+ * Creates a store for a passed model object
+ * @class
+ * 
+ */
 class Store {
     constructor(model_name) {
         this.model_name = model_name;
@@ -8,6 +18,12 @@ class Store {
         this.indexes[this.model_name] = 0;
         this.error = new Error();
     }
+    /**
+     * Pushes model data passed as param object
+     * @method create
+     * @param {*} data 
+     * @this Store
+     */
     create(data) {
         return new Promise((resolve, reject) => {
 
@@ -26,7 +42,12 @@ class Store {
             }
         });
     }
-
+    /**
+     * Finds if there is any data in the array and retrieve them
+     * @method search
+     * @param {*} args
+     * @this Store 
+     */
     search(args = {}) {
         return new Promise((resolve, reject) => {
             if (this.store[this.model_name]) {
@@ -46,7 +67,12 @@ class Store {
             }
         });
     }
-
+    /**
+     * Find a corresponding value to the param and retrieve it
+     * @method searchById
+     * @param {*} id 
+     * @this Store
+     */
     searchById(id) {
         return new Promise((resolve, reject) => {
             const found = this.store[this.model_name].find(order => order.id === id);
@@ -55,7 +81,13 @@ class Store {
             found ? resolve(found) : reject(this.error);
         });
     }
-
+    /**
+     * Find a corresponding value to the param and replace it
+     * @method update
+     * @param {*} id 
+     * @param {*} args 
+     * @this Store
+     */
     update(id, args) {
         return new Promise((resolve, reject) => {
             this.findById(id)
@@ -71,7 +103,12 @@ class Store {
                 .catch(err => reject({ ...err, name: 'not updated' }));
         });
     }
-
+    /**
+     * Find a corresponding value to the param in the array and remove it
+     * @method findByIdAndRemove
+     * @param {*} id 
+     * @this store
+     */
     findByIdAndRemove(id) {
         return new Promise((resolve, reject) => {
             this.findById(id)
@@ -83,7 +120,11 @@ class Store {
         });
     }
     //***********************************************************
-
+    /**
+     * Remove any value in the array
+     * @method clean
+     * @this store
+     */
     clean() {
         this.store[this.model_name].length = 0;
     }
