@@ -1,21 +1,18 @@
 import { Router } from 'express';
-import {
-    getAllParcels,
-    getParcelOrderByUser,
-    getParcelById,
-    cancelParcelOrder,
-    createParcelOrder
-} from '../controllers/parcel';
+
+import Parcel from '../controllers/parcel'
+
 const router = Router();
+// const p = new Parcel();
 
-router.get('/parcels', getAllParcels);
+router.get('/parcels', Parcel.getAllParcels);
 
-router.get('/parcels/:id', getParcelById);
+// router.get('/parcels/:id', Parcel.getParcelById);
 
-router.get('/users/:id/parcels', getParcelOrderByUser);
+// router.get('/users/:id/parcels', Parcel.getParcelOrderByUser);
 
-router.put('/parcels/:id/cancel', cancelParcelOrder);
+// router.put('/parcels/:id/cancel', Parcel.cancelParcelOrder);
 
-router.post('/parcels', createParcelOrder);
+// router.post('/parcels', Parcel.createParcelOrder);
 
 export default router;

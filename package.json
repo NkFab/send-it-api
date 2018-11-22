@@ -32,6 +32,8 @@
     "pg": "^7.6.1"
   },
   "devDependencies": {
+    "@babel/preset-es2015": "^7.0.0-beta.53",
+    "@babel/preset-stage-0": "^7.0.0",
     "chai": "*",
     "coveralls": "^3.0.2",
     "istanbul": "^0.4.5",
