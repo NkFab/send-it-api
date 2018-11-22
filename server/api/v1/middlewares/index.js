@@ -24,6 +24,7 @@ export default app => {
     // Error handling 
 
     app.use((req, res) => {
-        res.status(404 || 500).json({ message: `invalid url ${req.url}` });
+        res.status(404).json({ message: `Url not found ${req.url}` });
+        res.status(500).json({ message: `Internal error` })
     });
 };
