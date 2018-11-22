@@ -7,12 +7,12 @@ const router = Router();
 
 router.get('/parcels', Parcel.getAllParcels);
 
-// router.get('/parcels/:id', Parcel.getParcelById);
+router.get('/parcels/:id', Parcel.getParcelById);
 
-// router.get('/users/:id/parcels', Parcel.getParcelOrderByUser);
+router.get('/users/:id/parcels', Parcel.getParcelOrderByUser);
 
-// router.put('/parcels/:id/cancel', Parcel.cancelParcelOrder);
+router.put('/parcels/:id/cancel', Parcel.cancelParcelOrder);
 
-// router.post('/parcels', Parcel.createParcelOrder);
+router.post('/parcels', Parcel.createParcelOrder);
 
 export default router;
