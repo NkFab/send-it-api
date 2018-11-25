@@ -2,7 +2,7 @@ import Parcel from '../models/parcel';
 
 export default class ParcelCont {
 
-    static getAllParcels = (req, res, next) => {
+    static getAllParcels(req, res, next) {
         Parcel.search({})
             .then(parcels => {
                 res.status(200).json({ parcels });
