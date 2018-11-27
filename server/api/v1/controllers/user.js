@@ -7,11 +7,11 @@ import env from "../config/environment"
 const now = new Date();
 export default class UserCont {
     static signUp(req, res) {
-        const { username, pass, email } = req.body;
+        const { username, pass, email, user_type } = req.body;
         const hashPass = bcrypt.hashSync(pass, 8);
         const query = {
-            text: 'INSERT INTO users (username, pass, email, created_on) VALUES ($1,$2,$3,$4 )',
-            values: [username, hashPass, email, now]
+            text: 'INSERT INTO users (username, pass, email, user_type, created_on) VALUES ($1,$2,$3,$4,$5 )',
+            values: [username, hashPass, email, user_type, now]
         };
         pool(env.development, query)
             .then(user => {
