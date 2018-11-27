@@ -84,4 +84,24 @@ export default class ParcelCont {
             })
             .catch(err => res.status(500).json({ message: 'The parcel order was not placed an error occured', ...err }))
     }
+
+    static changePresentLoc(req, res) {
+        const { id, origin } = req.body;
+        const query = {
+            text: `UPDATE orders 
+                    SET origin=$1
+                    WHERE order_ref=$2
+            `,
+            values: [id, origin]
+        }
+        pool(env.development, query)
+            .then(order => {
+                order.rows[0] ?
+                    res.status(201).json({ order })
+                    :
+                    res.status(404).json({ ...err })
+            })
+            .catch(err => res.status(500).json({ ...err }))
+
+    }
 }
