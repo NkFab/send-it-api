@@ -15,4 +15,9 @@ router.put('/parcels/:id/cancel', Parcel.cancelParcelOrder);
 
 router.post('/parcels', Parcel.createParcelOrder);
 
+router.post('/parcels/:id/presentLocation', Parcel.changePresentLoc);
+
+
+
+
 export default router;

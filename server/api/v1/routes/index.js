@@ -1,6 +1,6 @@
 import { Router } from "express";
 import parcel from './parcel';
-import user from './user'
+import user from './auth'
 const router = Router();
 
 router.get('/unauthorized', (req, res) => {
