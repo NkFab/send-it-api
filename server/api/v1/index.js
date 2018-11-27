@@ -3,6 +3,7 @@ import morgan from 'morgan';
 import passport from "passport";
 import middlewares from './middlewares';
 import passportStategy from "./middlewares/auth/passport"
+
 const server = express();
 //in express 4.* >= body parser has been added in express and called using methods json
 server.use(express.json());
@@ -10,7 +11,7 @@ server.use(express.urlencoded({ extended: false }));
 server.use(morgan('combined'));
 middlewares(server);
 server.use(passport.initialize());
-// passportStategy(passport);
+passportStategy(passport)
 
 
 const port = 3000 || 8080;
