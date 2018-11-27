@@ -24,5 +24,6 @@ export default {
         port: process.env.Port,
         password: process.env.Password,
     },
+    jwtSecret: { secret: process.env.JWTKEY }
 };
 

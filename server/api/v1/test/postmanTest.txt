@@ -1,0 +1,17 @@
+Test order parcel
+{
+"origin": "Kimironko",
+"destination": "Kicukiro",
+"beneficiary": "Kamara", 
+"pick_date": "2018-11-30 11:33:06.176",
+"parcel": "Mac book 13 inch",
+"weight": 3, 
+"description": "It's a brand new mac with a space grey color"
+}
+Test user
+{
+ "username": "nkfab",
+ "pass": "nkfab123",
+ "email": "nkfab@gmail.com",
+ "user_type": "Admin"
+}
