@@ -1,3 +1,3 @@
 import './User'
-import './Parcel'
+// import './Parcel'
 import './Order'
