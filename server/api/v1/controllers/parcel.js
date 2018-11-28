@@ -104,4 +104,24 @@ export default class ParcelCont {
             .catch(err => res.status(500).json({ ...err }))
 
     }
+
+    static changeParcelDestination(req, res) {
+        const { id, destination } = req.body;
+        const query = {
+            text: `UPDATE orders 
+                    SET destination=$1
+                    WHERE order_ref=$2
+            `,
+            values: [id, destination]
+        }
+        pool(env.development, query)
+            .then(order => {
+                order.rows[0] ?
+                    res.status(201).json({ order })
+                    :
+                    res.status(404).json({ ...err })
+            })
+            .catch(err => res.status(500).json({ ...err }))
+
+    }
 }
