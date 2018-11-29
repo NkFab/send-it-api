@@ -23,7 +23,6 @@ export default {
         database: process.env.Database,
         port: process.env.Port,
         password: process.env.Password,
-    },
-    jwtSecret: { secret: process.env.JWTKEY }
+    }
 };
 

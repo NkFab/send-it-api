@@ -20,7 +20,7 @@ export default class UserCont {
         };
         pool(env.development, query)
             .then(user => {
-                res.status(201).json({ "message": "User was created", user });
+                res.status(201).json({ "message": "User was created" });
                 console.log(user.rows[0]);
             })
             .catch(err => res.status(500).json(err));
@@ -45,7 +45,7 @@ export default class UserCont {
                             jwt.sign(
                                 payload,
                                 jwtsecret.secret,
-                                { expiresIn: 3600 },
+                                // { expiresIn: 3600 },
                                 (err, token) => {
                                     res.status(200).json({ message: "Success", token })
                                     res.status(500).json(err)

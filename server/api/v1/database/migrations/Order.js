@@ -14,7 +14,6 @@ const Order =
     description VARCHAR(200),
     status CHAR(20) NOT NULL,
     created_at TIMESTAMP NOT NULL,
-    updated_at TIMESTAMP,
     user_id INT references users
   )`;
 
