@@ -3,25 +3,24 @@
  * https://medium.com/@arpyvanyan
  * */
 import passportJWT from "passport-jwt";
-import dotenv from "dotenv";
-import Queries from "../../database/queries";
+import Queries from "../database/queries";
+import { jwtsecret } from "../config/secret";
 
-dotenv.config();
 const ExtractJWT = passportJWT.ExtractJwt;
 const JWTStrategy = passportJWT.Strategy;
 
 const passportStategy = (passport) => {
     passport.use(new JWTStrategy({
         jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
-        secretOrKey: process.env.JWTKEY
+        secretOrKey: jwtsecret.secret
     },
-        (jwtPayload, next) => {
-            return Queries.findOneByID(jwtPayload.id)
+        (jwtPayload, done) => {
+            Queries.findOneByID(jwtPayload.user_id)
                 .then(user => {
-                    return next(null, user);
+                    return done(null, user);
                 })
                 .catch(err => {
-                    return next(err);
+                    return done(err);
                 });
         }
     ));

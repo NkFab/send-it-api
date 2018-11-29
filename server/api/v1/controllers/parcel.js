@@ -5,6 +5,7 @@ import env from "../config/environment"
 export default class ParcelCont {
 
     static getAllParcels(req, res) {
+        console.log(req.body.user);
         const query = {
             text: 'SELECT * FROM orders',
         }
@@ -32,17 +33,18 @@ export default class ParcelCont {
     };
 
     static getParcelOrderByUser(req, res) {
-        const { id } = req.params;
+        // const { id } = req.params;
+        const id = req.user.user_id;
         const query = {
-            text: `SELECT * FROM orders WHERE order_id = $1`,
+            text: `SELECT * FROM orders WHERE user_id = $1`,
             values: [id]
         }
         pool(env.development, query)
             .then(orders => {
-                orders.rows ?
+                !orders.rows.length === 0 ?
                     res.status(200).json({ ...orders.rows })
                     :
-                    res.status(404).json({ message: `You did not place any orders` })
+                    res.status(404).json({ message: 'You did not place any orders' })
             })
             .catch(err => res.status(500).json({ ...err }))
     };
@@ -59,7 +61,7 @@ export default class ParcelCont {
         pool(env.development, query)
             .then(order => {
                 order.rows[0] ?
-                    res.status(201).json({ order })
+                    res.status(201).json({ message: "Parcel order was canceled" })
                     :
                     res.status(404).json({ ...err })
             })
@@ -67,10 +69,12 @@ export default class ParcelCont {
     };
 
     static createParcelOrder(req, res) {
+        console.log(req.user);
         const unitaryPrice = 1000;
         const status = "On the go";
         const now = new Date();
-        const { origin, destination, beneficiary, pick_date, parcel, weight, description, user } = req.body;
+        let user = req.user.user_id;
+        const { origin, destination, beneficiary, pick_date, parcel, weight, description } = req.body;
         const price = unitaryPrice * weight;
         const query = {
             text: `INSERT INTO orders 
@@ -80,7 +84,7 @@ export default class ParcelCont {
         };
         pool(env.development, query)
             .then(order => {
-                res.status(201).json({ message: 'The parcel order was placed', order })
+                res.status(201).json({ message: 'The parcel order was placed' })
             })
             .catch(err => res.status(500).json({ message: 'The parcel order was not placed an error occured', ...err }))
     }
@@ -97,7 +101,7 @@ export default class ParcelCont {
         pool(env.development, query)
             .then(order => {
                 order.rows[0] ?
-                    res.status(201).json({ order })
+                    res.status(201).json({ message: "The location was changed" })
                     :
                     res.status(404).json({ ...err })
             })
@@ -117,7 +121,7 @@ export default class ParcelCont {
         pool(env.development, query)
             .then(order => {
                 order.rows[0] ?
-                    res.status(201).json({ order })
+                    res.status(201).json({ message: "The destination was changed" })
                     :
                     res.status(404).json({ ...err })
             })

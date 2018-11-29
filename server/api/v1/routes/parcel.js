@@ -1,23 +1,28 @@
 import { Router } from 'express';
 import passport from "passport";
 import Parcel from '../controllers/parcel'
+import Authorize from "../middlewares/authorization"
 
+/**
+ * feedbac;
+   Validate input data
+ */
 const router = Router();
-router.use(passport.authenticate("jwt", { session: false, failureRedirect: '/api/v1/unauthorized' }))
 
-router.get('/parcels', Parcel.getAllParcels);
+const secure = passport.authenticate("jwt", { session: false, failureRedirect: '/api/v1/unauthorized' });
 
-router.get('/parcels/:id', Parcel.getParcelById);
+router.get('/parcels', secure, Authorize.admin, Parcel.getAllParcels);
 
-router.get('/users/:id/parcels', Parcel.getParcelOrderByUser);
+router.get('/parcels/:id', secure, Authorize.admin, Parcel.getParcelById);
 
-router.put('/parcels/:id/cancel', Parcel.cancelParcelOrder);
+router.get('/users/:id/parcels', secure, Authorize.user, Parcel.getParcelOrderByUser);//user
 
-router.post('/parcels', Parcel.createParcelOrder);
+router.put('/parcels/:id/cancel', secure, Authorize.user, Parcel.cancelParcelOrder);
 
-router.put('/parcels/:id/presentLocation', Parcel.changePresentLoc);
+router.post('/parcels', secure, Authorize.user, Parcel.createParcelOrder);
 
-router.put('/parcels/:id/destination', Parcel.changeParcelDestination);
+router.put('/parcels/:id/presentLocation', secure, Authorize.admin, Parcel.changePresentLoc);//admin
 
+router.put('/parcels/:id/destination', secure, Authorize.user, Parcel.changeParcelDestination);//user
 
 export default router;
