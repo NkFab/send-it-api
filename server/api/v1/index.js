@@ -1,5 +1,5 @@
 import express from 'express';
-import morgan from 'morgan';
+// import morgan from 'morgan';
 import { errors } from "celebrate";
 import passport from "passport";
 import routes from './routes/index'
@@ -9,7 +9,7 @@ const server = express();
 //in express 4.* >= body parser has been added in express and called using methods json
 server.use(express.json());
 server.use(express.urlencoded({ extended: false }));
-server.use(morgan('combined'));
+// server.use(morgan('combined'));
 server.use(passport.initialize());
 passportStategy(passport)
 
