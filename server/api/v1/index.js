@@ -22,7 +22,7 @@ server.use((req, res) => {
 
 server.use(errors());
 
-const port = 3000 || 8080;
+const port = process.env.PORT || 8080;
 server.listen(port, err => {
     if (err) {
         console.log('Server not running...', err);
