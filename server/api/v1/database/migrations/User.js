@@ -12,7 +12,7 @@ const User =
 
 (
     () => {
-        pool(env.development, User)
+        pool(env.development || env.production, User)
             .then(res => console.log("Table USERS was created..."))
             .catch(err => console.log(err))
     }

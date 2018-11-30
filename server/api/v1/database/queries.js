@@ -7,7 +7,7 @@ class Queries {
             text: `SELECT * FROM users WHERE user_id = $1 LIMIT 1`,
             values: [id]
         };
-        return pool(env.development, query)
+        return pool(env.development || env.production, query)
             .then(res => {
                 const { rows } = res;
                 return rows[0]

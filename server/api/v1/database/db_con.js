@@ -2,8 +2,9 @@ import { Pool } from "pg";
 import dotenv from "dotenv";
 
 dotenv.config();
-export default (env = {}, sqlQuery = '') => {
-    const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+
+export default (env, sqlQuery = '') => {
+    const pool = new Pool({ connectionString: env });
     return new Promise((resolve, reject) => {
         pool
             .query(sqlQuery)

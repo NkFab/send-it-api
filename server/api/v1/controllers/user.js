@@ -18,7 +18,7 @@ export default class UserCont {
             text: 'INSERT INTO users (username, pass, email, user_type, created_on) VALUES ($1,$2,$3,$4,$5 ) RETURNING *',
             values: [username, hashPass, email, user_type, now]
         };
-        pool(env.development, query)
+        pool(env.development || env.production, query)
             .then(user => {
                 res.status(201).json({ "message": "User was created" });
                 console.log(user.rows[0]);
@@ -32,7 +32,7 @@ export default class UserCont {
             text: 'SELECT * FROM users WHERE email = $1',
             values: [email]
         }
-        pool(env.development, query)
+        pool(env.development || env.production, query)
             .then(user => {
                 if (!user.rows[0]) {
                     return res.status(404).json({ message: "There is no such email" })

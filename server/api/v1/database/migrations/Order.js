@@ -21,7 +21,7 @@ const Order =
 (
   () => {
     setTimeout(() => {
-      pool(env.development, Order)
+      pool(env.development || env.production, Order)
         .then(res => console.log("Table ORDERS was created..."))
         .catch(err => console.log(err))
     }, 5000)
