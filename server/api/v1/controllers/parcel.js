@@ -98,7 +98,7 @@ export default class ParcelCont {
                     SET origin=$1
                     WHERE order_ref=$2
             `,
-            values: [id, origin]
+            values: [origin, id]
         }
         pool(env.development || env.production, query)
             .then(order => {
@@ -119,7 +119,7 @@ export default class ParcelCont {
                     SET destination=$1
                     WHERE order_ref=$2
             `,
-            values: [id, destination]
+            values: [destination, id]
         }
         pool(env.development || env.production, query)
             .then(order => {
@@ -139,7 +139,7 @@ export default class ParcelCont {
                     SET status=$1
                     WHERE order_ref=$2
             `,
-            values: [id, status]
+            values: [status, id]
         }
         pool(env.development || env.production, query)
             .then(order => {
