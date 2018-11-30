@@ -33,15 +33,16 @@ export default class ParcelCont {
     };
 
     static getParcelOrderByUser(req, res) {
-        // const { id } = req.params;
-        const id = req.user.user_id;
+        const { id } = req.params;
+        // const { user_id } = req.user
+        // console.log(user_id)
         const query = {
             text: `SELECT * FROM orders WHERE user_id = $1`,
             values: [id]
         }
         pool(env.development || env.production, query)
             .then(orders => {
-                !orders.rows.length === 0 ?
+                orders.rows ?
                     res.status(200).json({ ...orders.rows })
                     :
                     res.status(404).json({ message: 'You did not place any orders' })
