@@ -33,12 +33,12 @@ export default class ParcelCont {
     };
 
     static getParcelOrderByUser(req, res) {
-        const { id } = req.params;
-        // const { user_id } = req.user
+        // const { id } = req.params;
+        const { user_id } = req.user
         // console.log(user_id)
         const query = {
             text: `SELECT * FROM orders WHERE user_id = $1`,
-            values: [id]
+            values: [user_id]
         }
         pool(env.development || env.production, query)
             .then(orders => {
