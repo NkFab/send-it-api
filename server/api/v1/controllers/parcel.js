@@ -91,7 +91,8 @@ export default class ParcelCont {
     }
 
     static changePresentLoc(req, res) {
-        const { id, origin } = req.body;
+        const { id } = req.params;
+        const { origin } = req.body;
         const query = {
             text: `UPDATE orders 
                     SET origin=$1
@@ -111,7 +112,8 @@ export default class ParcelCont {
     }
 
     static changeParcelDestination(req, res) {
-        const { id, destination } = req.body;
+        const { id } = req.params;
+        const { destination } = req.body;
         const query = {
             text: `UPDATE orders 
                     SET destination=$1
@@ -128,5 +130,24 @@ export default class ParcelCont {
             })
             .catch(err => res.status(500).json({ ...err }))
 
+    }
+    static changeStatusOrder(req, res) {
+        const { id } = req.params;
+        const { status } = req.body;
+        const query = {
+            text: `UPDATE orders 
+                    SET status=$1
+                    WHERE order_ref=$2
+            `,
+            values: [id, status]
+        }
+        pool(env.development || env.production, query)
+            .then(order => {
+                order.rows[0] ?
+                    res.status(201).json({ message: "The destination was changed" })
+                    :
+                    res.status(404).json({ ...err })
+            })
+            .catch(err => res.status(500).json({ ...err }))
     }
 }

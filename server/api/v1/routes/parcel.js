@@ -25,4 +25,6 @@ router.put('/parcels/:id/presentLocation', secure, Authorize.admin, Parcel.chang
 
 router.put('/parcels/:id/destination', secure, Authorize.user, Parcel.changeParcelDestination);//user
 
+router.put('parcels/:id/status', secure, Authorize.admin, Parcel.changeStatusOrder); //admin
+
 export default router;
