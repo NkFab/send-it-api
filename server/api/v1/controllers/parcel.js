@@ -9,7 +9,7 @@ export default class ParcelCont {
         const query = {
             text: 'SELECT * FROM orders',
         }
-        pool(env.development, query)
+        pool(query)
             .then(orders => {
                 res.status(200).json({ ...orders.rows });
             })
@@ -22,7 +22,7 @@ export default class ParcelCont {
             text: "SELECT * FROM orders WHERE order_ref = $1",
             values: [id]
         }
-        pool(env.development, query)
+        pool(query)
             .then(order => {
                 order.rows[0] ?
                     res.status(200).json({ ...order.rows[0] })
@@ -39,7 +39,7 @@ export default class ParcelCont {
             text: `SELECT * FROM orders WHERE user_id = $1`,
             values: [id]
         }
-        pool(env.development, query)
+        pool(query)
             .then(orders => {
                 !orders.rows.length === 0 ?
                     res.status(200).json({ ...orders.rows })
@@ -58,7 +58,7 @@ export default class ParcelCont {
                     WHERE order_ref=$2`,
             values: [status, id]
         }
-        pool(env.development, query)
+        pool(query)
             .then(order => {
                 order.rows[0] ?
                     res.status(201).json({ message: "Parcel order was canceled" })
@@ -82,7 +82,7 @@ export default class ParcelCont {
                     VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)`,
             values: [origin, destination, beneficiary, pick_date, price, parcel, weight, description, status, now, user]
         };
-        pool(env.development, query)
+        pool(query)
             .then(order => {
                 res.status(201).json({ message: 'The parcel order was placed' })
             })
@@ -98,7 +98,7 @@ export default class ParcelCont {
             `,
             values: [id, origin]
         }
-        pool(env.development, query)
+        pool(query)
             .then(order => {
                 order.rows[0] ?
                     res.status(201).json({ message: "The location was changed" })
@@ -118,7 +118,7 @@ export default class ParcelCont {
             `,
             values: [id, destination]
         }
-        pool(env.development, query)
+        pool(query)
             .then(order => {
                 order.rows[0] ?
                     res.status(201).json({ message: "The destination was changed" })

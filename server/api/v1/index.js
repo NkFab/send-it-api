@@ -15,6 +15,14 @@ passportStategy(passport)
 
 server.use('/api/v1', routes);
 
+// server.use('/');
+
+// server.use('/static', express.static(path.join(__dirname, 'public')))
+
+server.get('/api/v1', (req, res) => {
+    res.json({message: "SEND IT API base route"})
+});
+
 server.use((req, res) => {
     res.status(404).json({ message: `Url not found ${req.url}` });
     res.status(500).json({ message: `Internal error` })
