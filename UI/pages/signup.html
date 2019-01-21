@@ -1,33 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>SendIT</title>
-    <link rel="shortcut icon" href="../assets/favicon.ico" type="image/x-icon">
+    <link
+      rel="shortcut icon"
+      href="../assets/favicon.ico"
+      type="image/x-icon"
+    />
     <link rel="stylesheet" type="text/css" media="screen" href="../main.css" />
-</head>
+  </head>
 
-<body>
+  <body>
     <div class="main">
-        <div class="logo-forms">
-            <a href="../index.html">Send_IT</a>
-        </div>
-        <div class="forms">
-            <form action="#" method="post">
-                <input type="text" name="username" id="" placeholder="Username..." class="input" required>
-                <input type="email" name="email" id="" placeholder="E.g. user@somewhere.com" class="input" required>
-                <input type="password" name="" id="" placeholder="Password..." class="input" required>
-                <a href="./login.html">
-                    <p>Access account</p>
-                </a>
-                <input type="submit" value="Sign Up" class="button">
-            </form>
-        </div>
+      <div class="logo-forms"><a href="../index.html">Send_IT</a></div>
+      <div class="forms">
+        <form method="post">
+          <input
+            type="text"
+            id="username"
+            placeholder="Username..."
+            class="input"
+            required
+          />
+          <input
+            type="email"
+            id="email"
+            placeholder="E.g. user@somewhere.com"
+            class="input"
+            required
+          />
+          <input
+            type="password"
+            id="pass"
+            placeholder="Password..."
+            class="input"
+            required
+          />
+          <a href="./login.html"> <p>Access account</p> </a>
+          <button value="Sign Up" class="button" id="sign-up" />
+        </form>
+      </div>
     </div>
     <script src="../main.js"></script>
-</body>
-
+    <script src="../consume.js"></script>
+  </body>
 </html>

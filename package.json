@@ -9,7 +9,7 @@
     "cover": "istanbul cover _mocha",
     "coveralls": "nyc report --reporter=text-lcov | coveralls",
     "db": "node --require babel-register server/api/v1/database/migrations/index.js",
-    "dbtest": "NODE_ENV=test node --require babel-register server/api/v1/database/migrationsTest/index.js" 
+    "dbtest": "NODE_ENV=test node --require babel-register server/api/v1/database/migrationsTest/index.js"
   },
   "author": "",
   "license": "ISC",
@@ -24,6 +24,7 @@
     "celebrate": "^9.0.1",
     "chai": "^4.2.0",
     "chai-http": "^4.2.0",
+    "cors": "^2.8.5",
     "cross-env": "5.2.0",
     "dotenv": "^6.1.0",
     "eslint-config-airbnb-base": "^13.1.0",
