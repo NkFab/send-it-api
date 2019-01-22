@@ -1,8 +1,10 @@
+//form fields
 let username = document.getElementById("username");
 let pass = document.getElementById("pass");
 let email = document.getElementById("email");
+//button
 let signup = document.getElementById("sign-up");
-
+//event listener to the button
 signup.addEventListener("click", e => {
   e.preventDefault();
   let data = {
@@ -11,7 +13,6 @@ signup.addEventListener("click", e => {
     email: email.value,
     user_type: "Client"
   };
-  console.log(data);
   let url = "http://localhost:8080/api/v1/auth/signup";
 
   fetch(url, {
